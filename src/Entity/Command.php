@@ -38,5 +38,34 @@ class Command
      */
     private $user;
 
+    public function getCommandid(): ?int
+    {
+        return $this->commandid;
+    }
+
+    public function getCommandDate(): ?\DateTimeInterface
+    {
+        return $this->commandDate;
+    }
+
+    public function setCommandDate(\DateTimeInterface $commandDate): self
+    {
+        $this->commandDate = $commandDate;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }

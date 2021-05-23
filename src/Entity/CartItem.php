@@ -55,5 +55,58 @@ class CartItem
      */
     private $shoppingCart;
 
+    public function getCartItemId(): ?int
+    {
+        return $this->cartItemId;
+    }
+
+    public function getCartItemQte(): ?int
+    {
+        return $this->cartItemQte;
+    }
+
+    public function setCartItemQte(int $cartItemQte): self
+    {
+        $this->cartItemQte = $cartItemQte;
+
+        return $this;
+    }
+
+    public function getAddedat(): ?\DateTimeInterface
+    {
+        return $this->addedat;
+    }
+
+    public function setAddedat(\DateTimeInterface $addedat): self
+    {
+        $this->addedat = $addedat;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getShoppingCart(): ?ShoppingCart
+    {
+        return $this->shoppingCart;
+    }
+
+    public function setShoppingCart(?ShoppingCart $shoppingCart): self
+    {
+        $this->shoppingCart = $shoppingCart;
+
+        return $this;
+    }
+
 
 }

@@ -45,5 +45,46 @@ class ShoppingCart
      */
     private $user;
 
+    public function getShoppingCartId(): ?int
+    {
+        return $this->shoppingCartId;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }

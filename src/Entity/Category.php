@@ -42,5 +42,46 @@ class Category
      */
     private $createdAt;
 
+    public function getCategoryId(): ?int
+    {
+        return $this->categoryId;
+    }
+
+    public function getCategoryName(): ?string
+    {
+        return $this->categoryName;
+    }
+
+    public function setCategoryName(string $categoryName): self
+    {
+        $this->categoryName = $categoryName;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
 
 }

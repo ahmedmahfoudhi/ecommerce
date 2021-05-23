@@ -48,5 +48,46 @@ class Line
      */
     private $product;
 
+    public function getLineId(): ?int
+    {
+        return $this->lineId;
+    }
+
+    public function getQte(): ?int
+    {
+        return $this->qte;
+    }
+
+    public function setQte(int $qte): self
+    {
+        $this->qte = $qte;
+
+        return $this;
+    }
+
+    public function getCommand(): ?Command
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?Command $command): self
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
 
 }

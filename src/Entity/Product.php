@@ -87,5 +87,118 @@ class Product
      */
     private $category;
 
+    public function getProductId(): ?int
+    {
+        return $this->productId;
+    }
+
+    public function getProductName(): ?string
+    {
+        return $this->productName;
+    }
+
+    public function setProductName(string $productName): self
+    {
+        $this->productName = $productName;
+
+        return $this;
+    }
+
+    public function getProductPhoto(): ?string
+    {
+        return $this->productPhoto;
+    }
+
+    public function setProductPhoto(string $productPhoto): self
+    {
+        $this->productPhoto = $productPhoto;
+
+        return $this;
+    }
+
+    public function getProductQte(): ?int
+    {
+        return $this->productQte;
+    }
+
+    public function setProductQte(int $productQte): self
+    {
+        $this->productQte = $productQte;
+
+        return $this;
+    }
+
+    public function getProductDiscount(): ?int
+    {
+        return $this->productDiscount;
+    }
+
+    public function setProductDiscount(int $productDiscount): self
+    {
+        $this->productDiscount = $productDiscount;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getProductPrice(): ?float
+    {
+        return $this->productPrice;
+    }
+
+    public function setProductPrice(float $productPrice): self
+    {
+        $this->productPrice = $productPrice;
+
+        return $this;
+    }
+
+    public function getProductDescription(): ?string
+    {
+        return $this->productDescription;
+    }
+
+    public function setProductDescription(string $productDescription): self
+    {
+        $this->productDescription = $productDescription;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
 
 }
