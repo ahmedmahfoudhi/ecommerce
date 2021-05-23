@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LineRepository;
 
 /**
  * Line
  *
  * @ORM\Table(name="line", indexes={@ORM\Index(name="command_id", columns={"command_id"}), @ORM\Index(name="product_id", columns={"product_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=LineRepository::class)
  */
 class Line
 {
