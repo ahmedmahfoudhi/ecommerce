@@ -120,7 +120,7 @@ class UserController extends AbstractController
         $user->setState($info['state']);
         $user->setStreet($info['street']);
         $user->setPostalCode($info['postalCode']);
-        $user->setPhoneNumber($info['phoneNumber'])
+        $user->setPhoneNumber($info['phoneNumber']);
         $user->setFirstname($info['firstname']);
         // in order to change his email or password he has to re-enter his password
         $doctrine->flush();

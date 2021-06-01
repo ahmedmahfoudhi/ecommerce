@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="category_id", columns={"category_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
  */
 class Product
 {
