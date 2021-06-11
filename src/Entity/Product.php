@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="category_id", columns={"category_id"})})
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -157,11 +158,13 @@ class Product
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt():void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime() ;
 
-        return $this;
     }
 
     public function getProductPrice(): ?float

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -71,16 +72,24 @@ class Category
         return $this;
     }
 
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt():void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime() ;
+    }
 
-        return $this;
+
+    public function __toString()
+    {
+        return $this->getCategoryName();
     }
 
 

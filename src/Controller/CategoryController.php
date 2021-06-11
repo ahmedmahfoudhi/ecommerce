@@ -7,6 +7,7 @@ use App\Form\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
@@ -26,24 +27,29 @@ class CategoryController extends AbstractController
 
     /**
      *
-     * @Route("/category/add/{name}",name="category.add")
+     * @Route("/category/add",name="category.add")
      */
-    public function addCategory($name , EntityManagerInterface $manager): Response
+    public function addCategory(EntityManagerInterface $manager , Request $request): Response
     {
-        // ToDo add prePersiste for the created at
-        //ToDo complete form submit
+
         $category = new Category() ;
 //        $category -> setCategoryName($name) ;
 //        $category -> setCreatedAt(new \DateTime()) ;
 //        $manager-> persist($category);
 //        $manager->flush();
         $form = $this->createForm(CategoryType::class,$category) ;
+        $form->handleRequest($request);
+        if($form->isSubmitted()) {
+            $manager->persist($category);
+            $manager->flush();
 
+            return $this->redirectToRoute('categories');
+        }
         return $this->render('category/category.html.twig', [
             //'category' => $category,
             'form' => $form->createView() ,
         ]);
-       // return $this->redirectToRoute('categories') ;
+        // return $this->redirectToRoute('categories') ;
 
     }
 
