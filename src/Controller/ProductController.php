@@ -17,7 +17,7 @@ class ProductController extends AbstractController
 {
 
     /**
-     * @Route("/list/{page<\d+>?1}/{number<\d+>?6}", name="product.list")
+     * @Route("/product/list/{page<\d+>?1}/{number<\d+>?6}", name="product.list")
      */
     public function index($page, $number): Response
     {
@@ -61,4 +61,31 @@ class ProductController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/delete/{product}", name="product.delete")
+     */
+    public function deleteProduct(EntityManagerInterface $manager, Product $product = null ) {
+
+        if ($product) {
+            $productName = $product->getProductName();
+            $manager->remove($product);
+//        $manager->persist($product2);
+            $manager->flush();
+            $this->addFlash('success', "le produit $productName  a été supprimé avec succès");
+        } else {
+            $this->addFlash('error', "le produit  est innexistant");
+        }
+
+        return $this->redirectToRoute('product.list');
+    }
+    /**
+     * @Route("/product/{product}", name="product.detail")
+     */
+    public function detailProduct(Product $product = null) {
+        return $this->render('product/detail.html.twig', [
+            'product' => $product
+        ]);
+    }
+
 }
