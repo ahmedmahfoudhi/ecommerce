@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,14 +63,15 @@ class UserController extends AbstractController
             $this->addFlash("error","You are already logged in!");
             return $this->render("user/home.html.twig");
         }
+        $info = Request::createFromGlobals()->request;
+
         $userRepo = $doctrine->getRepository(UserRepository::class);
-        $info = $form->get();
-        $user = $userRepo->findOneBy(['email' => $info['email']]);
+        $user = $userRepo->findOneBy(['email' => $info->get('email')]);
         if($user == null){
             $this->addFlash('error',"Wrong Email!");
             return $this->render("user/login.html.twig");
         }
-        if($user->getPassword() != $info['password']){
+        if($user->getPassword() != $info->get('password')){
             $this->addFlash('error',"Wrong Password!");
             return $this->render("user/login.html.twig");
         }
@@ -115,8 +117,8 @@ class UserController extends AbstractController
             return $this->render("user/login.html.twig");
         }
         // $info contains the information to be updated
-        $user->setFirstname($info['firstname']);
-        $user->setLastname($info['lastname']);
+        $user->setFirstname($info->get('firstname'));
+        $user->setLastname($info->get('lastname'));
         $user->setState($info['state']);
         $user->setStreet($info['street']);
         $user->setPostalCode($info['postalCode']);
@@ -126,6 +128,8 @@ class UserController extends AbstractController
         $doctrine->flush();
 
     }
+
+    //TODO : user.add
 
 
 
