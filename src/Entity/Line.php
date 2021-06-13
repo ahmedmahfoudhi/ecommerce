@@ -34,7 +34,7 @@ class Line
      *
      * @ORM\ManyToOne(targetEntity="Command")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="command_id", referencedColumnName="commandID")
+     *   @ORM\JoinColumn(name="command_id", referencedColumnName="commandid")
      * })
      */
     private $command;
