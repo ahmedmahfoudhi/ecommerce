@@ -33,6 +33,7 @@ class UserController extends AbstractController
 
 
 
+
     /**
      * @Route("/deleteuser", name="user.delete")
      */
@@ -53,9 +54,14 @@ class UserController extends AbstractController
         return $this->render("home.html.twig");
     }
 
+    /*
+
+
     /**
      * @Route("/login", name="user.login")
      */
+
+    /*
 
     public function login(SessionInterface $session, EntityManagerInterface $doctrine): Response{
         // TODO : get information from the form ans assign it to the $form variable
@@ -86,9 +92,12 @@ class UserController extends AbstractController
         return $this->redirectToRoute("user");
     }
 
+
     /**
      * @Route("/logout", name="user.logout")
      */
+
+    /*
 
     public function logout(SessionInterface $session): Response{
         if(!$session->has('id')){
@@ -98,6 +107,7 @@ class UserController extends AbstractController
         $session->clear();
         return $this->render("home.html.twig");
     }
+    */
 
     /**
      * @Route("/update", name="user.update")
