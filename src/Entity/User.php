@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -65,6 +66,26 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $phoneNumber;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $avatar;
+
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="created_at",type="date", nullable=false)
+     */
+    private $createdAt;
+
+
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="deleted_at",type="date", nullable=true)
+     */
+    private $deletedAt;
 
     public function getId(): ?int
     {
@@ -125,6 +146,54 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param mixed $avatar
+     */
+    public function setAvatar($avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTime("NOW");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function setDeletedAt(): void
+    {
+        $this->deletedAt = new \DateTime("NOW");
     }
 
     /**

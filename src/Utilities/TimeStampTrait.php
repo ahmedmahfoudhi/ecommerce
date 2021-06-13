@@ -11,13 +11,13 @@ trait TimeStampTrait
 
     /**
      * @var
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $createdAt;
 
     /**
      * @var
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $deletedAt;
 
@@ -55,14 +55,14 @@ trait TimeStampTrait
      * @ORM\PrePersist
      */
     public function onPersist(){
-        $this->createdAt = new \DateTime("NOW");
+        $this->setCreatedAt(new \DateTime("NOW"));
     }
 
     /**
      * @ORM\PreRemove
      */
     public function onRemove(){
-        $this->deletedAt = new \DateTime("NOW");
+        $this->setDeletedAt(new \DateTime("NOW"));
     }
 
 

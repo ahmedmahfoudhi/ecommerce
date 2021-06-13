@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {% for p in products %} {{ p.productName }}  <img src="{{ asset('uploads/products/') ~ p.productPhoto }}"> {% endfor %}</h1>
+    <h1>Hello {% for p in products %} {{ p.productName }}  <img src="{{ asset('uploads/images/') ~ p.productPhoto }}"> {% endfor %}</h1>
 
     This friendly message is coming from:
     <ul>
