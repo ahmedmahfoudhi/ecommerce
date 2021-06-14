@@ -30,6 +30,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/product/add", name="product.add")
      */
@@ -108,7 +109,7 @@ class ProductController extends AbstractController
      */
     public function detailProduct(Product $product = null) {
         return $this->render('product/detail.html.twig', [
-            'product' => $product
+            'p' => $product
         ]);
     }
 
