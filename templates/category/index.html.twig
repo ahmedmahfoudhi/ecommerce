@@ -1,21 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-{% for category in categories %}
-    {% if not category.deletedAt %}
-        <h1>{{ category.categoryName }} </h1>
-        <br>
-        <a href={{ path('category.delete', {'id': category.getCategoryId()}) }}>delete</a>
-        <a href={{ path('category.edit', {'category': category.getCategoryId()}) }}>edit</a>
-    {% endif %}
-{% endfor %}
+{% extends 'base.html.twig' %}
 
-</body>
-</html>
+
+{% block body %}
+    <div class="container">
+        {% for category in categories %}
+            {% if not category.deletedAt %}
+                <h1>{{ category.categoryName }} </h1>
+                <br>
+                <a href={{ path('category.delete', {'id': category.getCategoryId()}) }}>delete</a>
+                <a href={{ path('category.edit', {'category': category.getCategoryId()}) }}>edit</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

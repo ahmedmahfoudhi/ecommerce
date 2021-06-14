@@ -14,7 +14,9 @@ use Symfony\Component\Validator\Constraints\Date;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/category', name: 'categories')]
+    /**
+     * @Route("/category",name="categories")
+     */
     public function index(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Category::class);

@@ -31,9 +31,8 @@ class UserController extends AbstractController
     {
         // ToDo add user data list
         $user = $security->getUser();
-        dd($user) ;
         $this->addFlash('error',"You are not logged in!");
-        //return $this->render("user/login.html.twig");
+        return $this->render("user/home.html.twig");
     }
 
 

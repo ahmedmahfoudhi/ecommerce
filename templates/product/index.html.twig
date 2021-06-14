@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}Products{% endblock %}
 
-{% block page %}
 {% block body %}
-
 
 <div class="example-wrapper">
      {% for p in products %} 
@@ -14,10 +12,11 @@
          <br>
          <a href={{ path('product.delete', {'product': p.getProductId()}) }}>delete</a>
          <a href={{ path('product.edit', {'product': p.getProductId()}) }}>edit</a>
-         <a href={{ path('product.detail', {'product': p.getProductId()}) }}>More details</a>
-         <a href={{ path('product.edit', {'product': p.getProductId()}) }}>Add to my cart</a>
+         <a href={{ path('product.detail', {'product': p.getProductId()}) }}>detail</a>
      {% endfor %}
+
 
 </div>
 {% endblock %}
+{% block footer %}
 {% endblock %}
