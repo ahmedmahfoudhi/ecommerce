@@ -29,7 +29,7 @@ class UserController extends AbstractController
      */
     public function index(Security $security): Response
     {
-        // ToDo add user data list
+        
         $user = $security->getUser();
         if($user){
             return $this->render("user/home.html.twig", [
@@ -49,7 +49,7 @@ class UserController extends AbstractController
      * @Route("/list", name="user.list")
      */
 
-    public function list(Security $security, Request $request, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function list(Security $security): Response
     {
 
         $loggedUser = $security->getUser();
@@ -121,62 +121,6 @@ class UserController extends AbstractController
         }
 
     }
-
-    /*
-
-    /**
-     * @Route("/login", name="user.login")
-     */
-
-    /*
-
-    public function login(SessionInterface $session, EntityManagerInterface $doctrine): Response{
-        // TODO : get information from the form ans assign it to the $form variable
-        if($session->has('id')){
-            $this->addFlash("error","You are already logged in!");
-            return $this->render("user/home.html.twig");
-        }
-        $info = Request::createFromGlobals()->request;
-
-        $userRepo = $doctrine->getRepository(UserRepository::class);
-        $user = $userRepo->findOneBy(['email' => $info->get('email')]);
-        if($user == null){
-            $this->addFlash('error',"Wrong Email!");
-            return $this->render("user/login.html.twig");
-        }
-        if($user->getPassword() != $info->get('password')){
-            $this->addFlash('error',"Wrong Password!");
-            return $this->render("user/login.html.twig");
-        }
-        if($user->getDeletedAt() != null){
-            $this->addFlash('error',"Account has been deleted at $user->getDeletedAt(), Unfortunately you have to register a new account!");
-            return $this->render("user/register.html.twig");
-        }
-
-
-        $session->set('id',$user->getId());
-        $this->addFlash("info","Welcome back!");
-        return $this->redirectToRoute("user");
-    }
-
-
-    /**
-     * @Route("/logout", name="user.logout")
-     */
-
-    /*
-
-    public function logout(SessionInterface $session): Response{
-        if(!$session->has('id')){
-            $this->addFlash("error","You are not logged in!");
-            return $this->render("user/login.html.twig");
-        }
-        $session->clear();
-        return $this->render("home.html.twig");
-    }
-    */
-
-
 
 
     /**
