@@ -1,0 +1,294 @@
+
+.sliderr{
+    overflow: hidden;
+}
+
+.sliderr figure{
+    height: 20%;
+    width: 500%;
+    margin: 0;left: 0;
+    position: relative;
+    animation: 20s slider infinite;
+}
+
+.sliderr figure img{
+   
+    width: 20%;
+    float: left;
+}
+
+@keyframes slider {
+    0%{left: 0;}
+    20%{left: 0;}
+    25%{left: -100%;}
+    45%{left: -100%;}
+    50%{left: -200%;}
+    70%{left: -200%;}
+    75%{left: -300%;}
+    95%{left: -300%;}
+    100%{left: -400%;}
+}
+
+.article-entry {
+    background: #fafafa; }
+    .article-entry .blog-img {
+      height: 250px;
+      display: block; }
+      @media screen and (max-width: 768px) {
+        .article-entry .blog-img {
+          height: 400px; } }
+      @media screen and (max-width: 480px) {
+        .article-entry .blog-img {
+          height: 270px; } }
+    .article-entry .desc {
+      padding: 1.5em 1em;
+      margin-bottom: 20px;
+      padding-left: 80px;
+      position: relative; }
+      .article-entry .desc h2 {
+        font-size: 20px; }
+        .article-entry .desc h2 a {
+          color: #000; }
+  
+      .article-entry .desc .meta {
+        line-height: 1.4;
+        text-transform: uppercase;
+        position: absolute;
+        top: -2.5em;
+        left: 0;
+        padding: .5em .7em;
+         }
+      .metacolorred {
+  
+        background: #ff0000; }
+      .metanormal {
+  
+      background: #FFC300; }
+  
+        .article-entry .desc .meta span {
+          display: block;
+          color: #fff;
+          font-weight: 700; }
+        .article-entry .desc .meta .day {
+          font-size: 30px;
+          position: relative; }
+        .article-entry .desc .meta .month {
+          font-size: 16px;
+          font-weight: 600; }
+      .article-entry .desc .admin {
+        margin-bottom: 20px; }
+        .article-entry .desc .admin span:last-child {
+          color: #000; }
+  
+  .user-img,
+  .thumb-img,
+  .f-product-1,
+  .f-product-2,
+  .product-img,
+  .intro-img,
+  .amenities-img,
+  .blog-img,
+  .hotel-img {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative; }
+
+    .colorlib-light-grey {
+        /*background: #fafafa; */
+        background: #f8f7f3;
+      }
+
+.colorlib-testimony
+ {
+  padding-bottom: 9em;
+  clear: both; }
+  .colorlib-heading {
+    margin-bottom: 5em; }
+    
+    .colorlib-heading h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      color: #000;
+      position: relative;
+      text-transform: uppercase; }
+
+      .colorlib-heading h2 span {
+        position: relative; }
+
+        .colorlib-heading h2 span:after {
+          position: absolute;
+          top: 49%;
+          left: -80px;
+          bottom: 0;
+          content: '';
+          width: 60px;
+          height: 2px;
+          background: #FFC300; }
+
+        .colorlib-heading h2 span:before {
+          position: absolute;
+          top: 49%;
+          right: -80px;
+          bottom: 0;
+          content: '';
+          width: 60px;
+          height: 2px;
+          background: #FFC300; }
+
+          .container {
+            position: relative;
+          }
+          
+          /* Hide the images by default */
+          .mySlides {
+            display: none;
+          }
+          
+          /* Add a pointer when hovering over the thumbnail images */
+          .cursor {
+            cursor: pointer;
+          }
+          
+          /* Next & previous buttons */
+          .prev,
+          .next {
+            cursor: pointer;
+            position: absolute;
+            /*top: 40%;*/
+            margin-top: -200px;
+            width: auto;
+            padding: 16px;
+            color: rgb(182, 36, 36);
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+          }
+          
+          
+          
+          /* Number text (1/3 etc) */
+          .numbertext {
+            color: #f8f7f3;
+            font-size: 12px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 0;
+          }
+          
+          /* Container for image text */
+          .caption-container {
+            text-align: center;
+            background-color: #222;
+            padding: 2px 16px;
+            color: #f8f7f3;
+          }
+          
+          .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+          
+          /* Six columns side by side */
+          .column {
+            float: left;
+            width: 16.66%;
+            
+          }
+          
+          
+          /* Add a transparency effect for thumnbail images */
+          .demo {
+            opacity: 0.6;
+          }
+          
+          .active,
+          .demo:hover {
+            opacity: 1;
+          }
+
+          /*#button {
+            display: inline-block;
+            background-color: #ff9800;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+          }
+          #button::after {
+            content: "\f077";
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+          }
+          #button:hover {
+            cursor: pointer;
+            background-color: #333;
+          }
+          #button:active {
+            background-color: #555;
+          }
+          #button.show {
+            opacity: 1;
+            visibility: visible;
+          }
+          @media (min-width: 500px) {
+            #button {
+              margin: 30px;
+            }
+          }
+          */
+          button#back2top{
+            display: inline-block;
+            background-color: #ff9800;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color 0.3s, opacity 0.5s, visibility 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;}
+
+            button#back2top::after {
+              content: "\f077";
+              font-family: FontAwesome;
+              font-weight: normal;
+              font-style: normal;
+              font-size: 2em;
+              line-height: 30px;
+              color: #fff;}
+
+              button#back2top:hover {
+                cursor: pointer;
+                background-color: #333;
+              }
+              button#back2top:active {
+                background-color: #555;
+              }
+              button#back2top.show {
+                opacity: 1;
+                visibility: visible;
+              }
+              @media (min-width: 500px) {
+                button#back2top {
+                  margin: 30px;
+                }
+              }
