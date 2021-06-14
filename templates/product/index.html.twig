@@ -5,18 +5,24 @@
 {% block body %}
 
 <div class="example-wrapper">
-     {% for p in products %} 
-         <h1>{{ p.productName }}</h1>
-         <br>
-         <img src="{{ asset('uploads/images/') ~ p.productPhoto }}">
-         <br>
-         <a href={{ path('product.delete', {'product': p.getProductId()}) }}>delete</a>
-         <a href={{ path('product.edit', {'product': p.getProductId()}) }}>edit</a>
-         <a href={{ path('product.detail', {'product': p.getProductId()}) }}>detail</a>
+     {% for p in products %}
+
+         <div class="card" style="width: 50px;">
+             <img class="card-img-top" src="{{ asset('uploads/images/') ~ p.productPhoto }}" alt="product image" style="width:250px;height:190px;">
+             <div class="card-body">
+                 <h5 class="card-title">{{ p.productName }}</h5>
+                 <p class="card-text">price {{ p.productPrice }} DT</p>
+                 <a href="{{ path('product.delete', {'product': p.getProductId()}) }}" class="btn btn-primary">delete</a>
+                 <a href="{{ path('product.edit', {'product': p.getProductId()}) }}" class="btn btn-primary">edit</a>
+                 <a href="{{ path('product.detail', {'product': p.getProductId()}) }}" class="btn btn-primary">details</a>
+
+             </div>
+         </div>
+
+
      {% endfor %}
 
 
 </div>
 {% endblock %}
-{% block footer %}
-{% endblock %}
+
