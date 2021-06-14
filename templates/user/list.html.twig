@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+
+        {% for u in users %}
+            <h1>{{ u.firstname }}</h1>
+            <h1>{{ u.lastname }}</h1>
+            <br>
+            <img src="{{ asset('uploads/images/') ~ u.avatar }}">
+            <br>
+            <a href={{ path('user.delete', {'user': u.getId()}) }}>delete</a>
+            <a href={{ path('user.edit', {'user': u.getId()}) }}>edit</a>
+
+        {% endfor %}
+
+
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

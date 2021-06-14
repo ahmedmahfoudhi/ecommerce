@@ -1,7 +1,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}name{% endblock %}
+{% block title %}{{ user.getFirstname }}{% endblock %}
 
 {% block style %}
     {% block headerstyle %}
@@ -84,10 +84,16 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            {% if not user.avatar %}
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User" class="rounded-circle" width="150">
+                            {% else %}
+                                <img src="{{ asset('uploads/images/') ~ user.avatar }}" alt="User" class="rounded-circle" width="150">
+                            {% endif %}
                             <div class="mt-3">
-                                <h4>name</h4>
-                                <button type="submit" class="btn btn-sm btn-default-alt pull-right" style='margin-right:20px'>Update Image</button>
+                                <h3>{{ user.getFirstname }}</h3>
+                                <h3>{{  user.getLastname }}</h3>
+
+
 
                             </div>
                         </div>
@@ -103,7 +109,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label" style='margin-top:-3px'>Email</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="hs@gmail.com" style='margin-top:-20px'>
+                                    <label >{{ user.getEmail }}</label>
 
                                 </div>
                             </div>
@@ -114,7 +120,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label" style='margin-top:-3px'>State</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="Kef,Nebeur" style='margin-top:-20px'>
+                                    <label >{{ user.getState }}</label>
 
                                 </div>
                             </div>
@@ -124,7 +130,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label" style='margin-top:-3px'>Street</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="Rue Taoufik Hakim" style='margin-top:-20px'>
+                                    <label >{{ user.getStreet }}</label>
 
                                 </div>
                             </div>
@@ -134,7 +140,17 @@
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label" style='margin-top:-3px'>Postal Code</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="7110" style='margin-top:-20px'>
+                                    <label >{{ user.getPostalCode }}</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label" style='margin-top:-3px'>Phone Number</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <label >{{ user.getPhoneNumber }}</label>
 
                                 </div>
                             </div>
@@ -142,9 +158,15 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <a class="btn btn-info " target="__blank" href="#">Save Changes</a>
-                                <a class="btn btn-info " target="__blank" href="shopcart.php">Cart Shop</a>
-
+                                <a class="btn btn-info "  href="{{ path('user.edit.self') }}">Edit Account</a>
+                                <a class="btn btn-info "  href="#">Shopping Cart</a>
+                                {% if user.getRoles[0] =="ROLE_ADMIN"  %}
+                                <br>
+                                <br>
+                                <a class="btn btn-success "  href="{{ path('user.list') }}">manage accounts</a>
+                                <a class="btn btn-success"  href="{{ path('product.list') }}">manage products</a>
+                                <a class="btn btn-success"  href="{{ path('categories') }}">manage categories</a>
+                                {% endif %}
                             </div>
 
                         </div>

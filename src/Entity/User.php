@@ -89,7 +89,7 @@ class User implements UserInterface
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->userId;
     }
 
     public function getEmail(): ?string

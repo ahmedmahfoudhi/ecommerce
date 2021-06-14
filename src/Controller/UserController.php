@@ -31,9 +31,58 @@ class UserController extends AbstractController
     {
         // ToDo add user data list
         $user = $security->getUser();
-        $this->addFlash('error',"You are not logged in!");
-        return $this->render("user/home.html.twig");
+        if($user){
+            return $this->render("user/home.html.twig", [
+                'user' => $user
+            ]);
+        }else{
+
+            $this->addFlash('error', "you must be logged in");
+            //redirect lo login
+            return $this->redirectToRoute('app_login');
+        }
+
     }
+
+
+    /**
+     * @Route("/list", name="user.list")
+     */
+
+    public function list(Security $security, Request $request, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    {
+
+        $loggedUser = $security->getUser();
+
+        if($loggedUser){
+
+            if(in_array("ROLE_ADMIN", $loggedUser->getRoles())){
+                $repository = $this->getDoctrine()->getRepository(User::class);
+                $users = $repository->findAll();
+
+
+                return $this->render('user/list.html.twig', [
+                    'users' => $users ,
+                ]);
+
+            }else{
+                //add flashbag
+                $this->addFlash('error', "you are not authorised");
+                //redirect lo login
+                return $this->redirectToRoute('user');
+
+            }
+
+        }else{
+            //must login
+            //add flashbag
+            $this->addFlash('error', "you must be logged in");
+            //redirect lo login
+            return $this->redirectToRoute('app_login');
+        }
+
+    }
+
 
 
     /**
