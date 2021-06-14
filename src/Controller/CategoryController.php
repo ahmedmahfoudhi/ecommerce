@@ -44,7 +44,7 @@ class CategoryController extends AbstractController
             $this->addFlash('success', "the category $categoryName has been added successfully");
             return $this->redirectToRoute('categories');
         }
-        return $this->render('category/category.html.twig', [
+        return $this->render('category/add.html.twig', [
             'form' => $form->createView() ,
         ]);
 
@@ -69,7 +69,7 @@ class CategoryController extends AbstractController
             $this->addFlash('success', "the category $categoryName has been edited successfully");
             return $this->redirectToRoute('categories');
         }
-        return $this->render('category/category.html.twig', [
+        return $this->render('category/add.html.twig', [
             'form' => $form->createView() ,
         ]);
 

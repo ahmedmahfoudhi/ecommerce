@@ -13,6 +13,7 @@
         <link href="{{ asset("assets/styles/headerstyle.css") }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset("assets/styles/bootstrap.css") }}">
                 {% endblock %}
+            {% block bodystyle %}
             <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
 
             <!-- Animate.css -->
@@ -41,7 +42,8 @@
             <!-- Modernizr JS -->
             <script src="{{ asset("assets/scripts/modernizr-2.6.2.min.js") }}"></script>
         {% endblock %}
-        <title>{% block title %}Home {% endblock %}</title>
+        {% endblock %}
+        <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
 

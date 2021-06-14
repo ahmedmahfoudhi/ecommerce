@@ -6,7 +6,10 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -18,14 +21,55 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('phoneNumber')
-            ->add('state')
-            ->add('street')
-            ->add('postalCode')
-            ->add('phoneNumber')
+            ->add('email',TextType::class,[
+                'label' => 'Email',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('firstname',TextType::class,[
+                'label' => 'Firstname',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('lastname',TextType::class,[
+                'label' => 'Lastname',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('phoneNumber',TextType::class,[
+                'label' => 'Phone Number',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('state',TextType::class,[
+                'label' => 'State',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('street',TextAreaType::class,[
+                'label' => 'Street',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('postalCode',IntegerType::class,[
+                'label' => 'Postal Code',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+            ->add('firstname',TextType::class,[
+                'label' => 'Firstname',
+                'row_attr' => [
+                    'class' => 'input-group'
+                ]
+            ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -35,7 +79,8 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add("avatar",FileType::class,[
-                "mapped" =>false
+                "mapped" =>false,
+                'row_attr' => ['class' => 'input-group']
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
