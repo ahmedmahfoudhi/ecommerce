@@ -33,25 +33,46 @@ class CategoryController extends AbstractController
     {
 
         $category = new Category() ;
-//        $category -> setCategoryName($name) ;
-//        $category -> setCreatedAt(new \DateTime()) ;
-//        $manager-> persist($category);
-//        $manager->flush();
         $form = $this->createForm(CategoryType::class,$category) ;
         $form->handleRequest($request);
         if($form->isSubmitted()) {
             $manager->persist($category);
             $manager->flush();
-
+            $categoryName = $category->getCategoryName() ;
+            $this->addFlash('success', "the category $categoryName has been added successfully");
             return $this->redirectToRoute('categories');
         }
         return $this->render('category/category.html.twig', [
-            //'category' => $category,
             'form' => $form->createView() ,
         ]);
-        // return $this->redirectToRoute('categories') ;
 
     }
+
+
+
+
+    /**
+     *
+     * @Route("/category/edit/{category}",name="category.edit")
+     */
+    public function editCategory(EntityManagerInterface $manager , Request $request ,Category $category): Response
+    {
+
+        $form = $this->createForm(CategoryType::class,$category) ;
+        $form->handleRequest($request);
+        if($form->isSubmitted()) {
+            $manager->persist($category);
+            $manager->flush();
+            $categoryName = $category->getCategoryName() ;
+            $this->addFlash('success', "the category $categoryName has been edited successfully");
+            return $this->redirectToRoute('categories');
+        }
+        return $this->render('category/category.html.twig', [
+            'form' => $form->createView() ,
+        ]);
+
+    }
+
 
     /**
      *
@@ -61,11 +82,12 @@ class CategoryController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Category::class);
         $categoryToDelete = $repository->findOneBy(['categoryId' => $id]);
         if(!$categoryToDelete){
-            // ToDo  add flash bag message
+            $this->addFlash('error', "this category does not exist");
         }else{
             $categoryToDelete -> setDeletedAt(new \DateTime())  ;
             $manager-> persist($categoryToDelete);
             $manager->flush();
+            $this->addFlash('success', "the category $categoryToDelete has been deleted successfully");
         }
         return $this->redirectToRoute('categories') ;
 

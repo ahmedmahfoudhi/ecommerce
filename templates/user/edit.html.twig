@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Account{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1>Edit Account</h1>
+
+    {{ form_start(editUserForm) }}
+    {{ form_row(editUserForm.email) }}
+    {{ form_row(editUserForm.plainPassword, {
+        label: 'Password'
+    }) }}
+    {{ form_row(editUserForm.agreeTerms) }}
+
+    <button type="submit" class="btn">save</button>
+    {{ form_end(editUserForm) }}
+{% endblock %}

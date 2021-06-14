@@ -9,7 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {% for p in products %} {{ p.productName }}  <img src="{{ asset('uploads/images/') ~ p.productPhoto }}"> {% endfor %}</h1>
+     {% for p in products %} 
+         <h1>{{ p.productName }}</h1>
+         <br>
+         <img src="{{ asset('uploads/images/') ~ p.productPhoto }}">
+         <br>
+         <a href={{ path('product.delete', {'product': p.getProductId()}) }}>delete</a>
+         <a href={{ path('product.edit', {'product': p.getProductId()}) }}>edit</a>
+     {% endfor %}
 
     This friendly message is coming from:
     <ul>

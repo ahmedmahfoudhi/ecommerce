@@ -10,7 +10,10 @@
 <body>
 {% for category in categories %}
     {% if not category.deletedAt %}
-    <h1>{{ category.categoryName }} </h1>
+        <h1>{{ category.categoryName }} </h1>
+        <br>
+        <a href={{ path('category.delete', {'id': category.getCategoryId()}) }}>delete</a>
+        <a href={{ path('category.edit', {'category': category.getCategoryId()}) }}>edit</a>
     {% endif %}
 {% endfor %}
 
