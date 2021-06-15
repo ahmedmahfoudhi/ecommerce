@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use App\Service\ImageUploader;
@@ -215,7 +216,7 @@ class UserController extends AbstractController
         $nbProd = $userProdAndRole->getNbProds();
 
         if($user){
-            $form = $this->createForm(RegistrationFormType::class, $user);
+            $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -243,7 +244,7 @@ class UserController extends AbstractController
             }
 
             return $this->render('user/edit.html.twig', [
-                'editUserForm' => $form->createView(),
+                'registrationForm' => $form->createView(),
                 'isAdmin' => $isAdmin,
                 'user' => $user,
                 'nbProds' => $nbProd

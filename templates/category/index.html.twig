@@ -19,11 +19,11 @@
                     <div class="card text-center">
                         <div class="card-body">
                             <h5 class="card-title" style="margin: 0 0 5px 0">{{ category.categoryName }}</h5>
-                            {% if user is defined and user.getRole() == ['ROLE_ADMIN'] %}
+                            {% if isAdmin is defined and isAdmin == true %}
                                 <a href="{{ path("category.delete",{'id': category.getCategoryId()}) }}" class="card-link">Delete</a>
                             {% endif %}
 
-                            <a href="#" class="card-link btn btn-primary">List Products</a>
+                            <a href="{{ path('product.list.category',{'id':category.getCategoryId()}) }}" class="card-link btn btn-primary">List Products</a>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
         {% if counter == 0%}
             <h4 class="text-danger">There are no categories.</h4><br>
         {% endif %}
-        {% if user is defined and user.getRole() == ['ROLE_ADMIN'] %}
+        {% if isAdmin is defined and isAdmin == true %}
             <a href="{{ path("category.add") }}" class="btn btn-primary">Add Category</a>
         {% endif %}
     </div>

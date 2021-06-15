@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CartItem;
 use App\Entity\Product;
+use App\Service\UserProdAndRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +18,11 @@ class ShoppingCartController extends AbstractController
      *
      * @Route("/cart",name="cart")
      */
-    public function index(EntityManagerInterface $manager, Security $security): Response
+    public function index(EntityManagerInterface $manager, UserProdAndRole $userProdAndRole): Response
     {
-        $user = $security->getUser();
+        $user = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
+        $nbProds = $userProdAndRole->getNbProds();
 
         if($user){
             $repository = $this->getDoctrine()->getRepository(ShoppingCart::class);
@@ -34,6 +37,9 @@ class ShoppingCartController extends AbstractController
                 );
                 return $this->render('shopping_cart/index.html.twig', [
                     'items' => $items ,
+                    'user' => $user,
+                    'isAdmin' => $isAdmin,
+                    'nbProds' => $nbProds
                 ]);
 
             }else{
@@ -45,6 +51,9 @@ class ShoppingCartController extends AbstractController
 
                 return $this->render('shopping_cart/index.html.twig', [
                     'items' => null ,
+                    'user' => $user,
+                    'isAdmin' => $isAdmin,
+                    'nbProds' => $nbProds
                 ]);
             }
 
