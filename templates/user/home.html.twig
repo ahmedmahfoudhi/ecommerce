@@ -158,7 +158,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
-                                <a class="btn btn-info "  href="{{ path('user.edit.self') }}">Edit Account</a>
+                                <a class="btn btn-info "  href="{{ path('user.edit',{'user':user.getId()}) }}">Edit Account</a>
                                 <a class="btn btn-info "  href="{{ path('cart') }}">Shopping Cart</a>
                                 {% if user.getRoles[0] =="ROLE_ADMIN"  %}
                                 <br>

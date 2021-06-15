@@ -150,11 +150,11 @@ class UserController extends AbstractController
 
         if($loggedUser){
 
-            if($isAdmin == true){
+            if($isAdmin == true || $loggedUser->getId() == $user->getId()){
                 $form = $this->createForm(RegistrationFormType::class, $user);
                 $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted()) {
                     // encode the plain password
                     $user->setPassword(
                         $passwordEncoder->encodePassword(
@@ -169,16 +169,16 @@ class UserController extends AbstractController
                     $entityManager->persist($user);
                     $entityManager->flush();
                     // do anything else you need here, like send an email
+                    return $this->redirectToRoute("user.list");
+                }else{
 
-                    return $this->redirectToRoute("user"); //changed here
+                    return $this->render('user/edit.html.twig', [
+                        'userEditForm' => $form->createView(),
+                        'nbProds' => $nbProd,
+                        'isAdmin' => $isAdmin,
+                        'user' => $loggedUser
+                    ]);
                 }
-
-                return $this->render('user/edit.html.twig', [
-                    'userEditForm' => $form->createView(),
-                    'nbProds' => $nbProd,
-                    'isAdmin' => $isAdmin,
-                    'user' => $loggedUser
-                ]);
 
             }else{
                 //add flashbag
@@ -205,11 +205,11 @@ class UserController extends AbstractController
 
     public function editSelf(UserProdAndRole $userProdAndRole, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, ImageUploader $imageUploader): Response
     {
-        $user = $userProdAndRole->getUser();
+        $loggedUser = $userProdAndRole->getUser();
         $isAdmin = $userProdAndRole->isAdmin();
         $nbProd = $userProdAndRole->getNbProds();
 
-        if($user != null){
+        if($loggedUser != null){
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
@@ -229,7 +229,7 @@ class UserController extends AbstractController
                 $entityManager->flush();
                 // do anything else you need here, like send an email
                 return $guardHandler->authenticateUserAndHandleSuccess(
-                    $user,
+                    $loggedUser,
                     $request,
                     $authenticator,
                     'main' // firewall name in security.yaml
