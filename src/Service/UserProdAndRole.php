@@ -24,9 +24,12 @@ class UserProdAndRole
         $this->security = $security;
         $this->user = $security->getUser();
         $this->isAdmin = false;
-        if(in_array('ROLE_ADMIN',$this->user->getRoles())){
-            $this->isAdmin = true;
+        if($this->user != null){
+            if(in_array('ROLE_ADMIN',$this->user->getRoles())){
+                $this->isAdmin = true;
+            }
         }
+
         $this->em = $em;
     }
 
