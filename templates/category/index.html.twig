@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title" style="margin: 0 0 5px 0">{{ category.categoryName }}</h5>
                             {% if isAdmin is defined and isAdmin == true %}
-                                <a href="{{ path("category.delete",{'id': category.getCategoryId()}) }}" class="card-link">Delete</a>
+                                <a href="{{ path("category.delete",{'id': category.getCategoryId()}) }}" class="card-link btn btn-danger">Delete</a>
                             {% endif %}
 
                             <a href="{{ path('product.list.category',{'id':category.getCategoryId()}) }}" class="card-link btn btn-primary">List Products</a>
@@ -35,7 +35,7 @@
             <h4 class="text-danger">There are no categories.</h4><br>
         {% endif %}
         {% if isAdmin is defined and isAdmin == true %}
-            <a href="{{ path("category.add") }}" class="btn btn-primary">Add Category</a>
+            <a href="{{ path("category.add") }}" class="btn btn-info">Add Category</a>
         {% endif %}
     </div>
 {% endblock %}

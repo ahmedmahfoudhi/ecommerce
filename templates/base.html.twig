@@ -62,14 +62,16 @@
                                 <ul>
                                     <li class="active"><a href="{{ path("home_index") }}">Home</a></li>
                                     <li class="has-dropdown">
-                                        <a href="#">Shop</a> <!-- categories path -->
+                                        <a href="#">Categories</a> <!-- categories path -->
                                         <ul class="dropdown" >
-                                            <li><a href="#" class="pc-redirect">Pc/Laptops</a></li>
+                                            <li><a href="{{path("product.list.category",{'id':8})}}">PC</a></li>
+                                            <li><a href="{{path("product.list.category",{'id':9})}}">Mobile</a></li>
+                                            <li><a href="{{path("product.list.category",{'id':10})}}">Accessories</a></li>
 
                                         </ul>
                                     </li>
 
-                                    <li><a href="#footerr">About</a></li>
+                                    <li><a href="{{ path("product.list.all") }}">Products</a></li>
                                     {% if user is defined  and user != null %}
 
                                         <li><a href="{{ path('user') }}">My Profile</a></li>

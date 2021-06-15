@@ -17,7 +17,7 @@
                             <div class="card-body">
                                 <h5 class="card-title" style="margin: 0 0 5px 0">{{ p.productName }}</h5>
                                 {% if isAdmin is defined and isAdmin == true %}
-                                    <a href="{{ path("product.delete",{'id': p.getProductId()}) }}" class="card-link btn btn-danger">Delete</a>
+                                    <a href="{{ path("product.delete",{'product': p.getProductId()}) }}" class="card-link btn btn-danger">Delete</a>
                                     <a href="{{ path("product.edit",{'product': p.getProductId()}) }}" class="card-link btn btn-primary">Update</a>
                                 {% endif %}
 
