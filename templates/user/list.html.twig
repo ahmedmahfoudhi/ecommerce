@@ -1,24 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Users{% endblock %}
+{% block title %}Products{% endblock %}
 
 {% block body %}
 
-    <div class="example-wrapper">
 
-        {% for u in users %}
-            <h1>{{ u.firstname }}</h1>
-            <h1>{{ u.lastname }}</h1>
-            <br>
-            <img src="{{ asset('uploads/images/') ~ u.avatar }}">
-            <br>
-            <a href={{ path('user.delete', {'user': u.getId()}) }}>delete</a>
-            <a href={{ path('user.edit', {'user': u.getId()}) }}>edit</a>
+    {% set counter = 0 %}
+    {% set toclose = 1 %}
+    <div class="container">
+        <div class="row mb-2">
+            {% for u in users %}
+                {% if not u.deletedAt %}
+                    <div class="col col-lg-4" style="margin-bottom:20px">
+                        <div class="card text-center">
+                            <img class="card-img-top" src="{{ asset('uploads/images/') ~ u.avatar }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" style="margin: 0 0 5px 0">{{ u.firstname }} {{ u.lastname }}</h5>
+                                {% if isAdmin is defined and isAdmin == true %}
+                                    <a href="{{ path('user.delete', {'user': u.getId()}) }}" class="card-link btn btn-danger">Delete</a>
+                                    <a href="{{ path('user.edit', {'user': u.getId()}) }}" class="card-link btn btn-primary">Update</a>
+                                {% endif %}
 
-        {% endfor %}
 
-
+                            </div>
+                        </div>
+                    </div>
+                    {% set counter = counter+1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if counter == 0%}
+            <h4 class="text-danger">There are no users</h4><br>
+        {% endif %}
     </div>
+
+
 {% endblock %}
+
 {% block footer %}
 {% endblock %}
+
+
+
+
+
+
