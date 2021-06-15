@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<!--
+{% for item in items %}
+    <h1>name :{{ item.product.getProductName }}</h1>
+    <h1>qte :{{ item.cartItemQte }}</h1>
+    <h1>price :{{ (item.product.getProductPrice * (100 - item.product.getProductDiscount)/100)* item.cartItemQte }}</h1>
+    <a href="{{ path('cart.delete', {'item': item.getCartItemId}) }}">delete</a>
+
+    <br>
+    <br>
+
+
+{% endfor%}
+--!>
+
+    <div class="colorlib-shop">
+        <div class="container">
+
+            <div class="row row-pb-md">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="product-name">
+                        <div class="one-forth text-center">
+                            <span>Product Details</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Price</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Quantity</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Total</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Remove</span>
+                        </div>
+                    </div>
+
+                    {% for item in items %}
+
+                    <div class="product-cart">
+                        <div class="one-forth">
+                            <div class="product-img" style="background-image: url(images/item-6.jpg);">
+                            </div>
+                            <div class="display-tc">
+                                <h3>{{ item.product.getProductName }}</h3>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <span class="price">${{ item.product.getProductPrice}} (discount {{ item.product.getProductDiscount }}%)</span>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="{{ item.cartItemQte }}" min="1" max="100">
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <span class="price">${{ (item.product.getProductPrice * (100 - item.product.getProductDiscount)/100)* item.cartItemQte }}</span>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <a href="{{ path('cart.delete', {'item': item.getCartItemId}) }}" class="closed"></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor%}
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
