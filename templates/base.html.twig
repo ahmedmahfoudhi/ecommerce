@@ -46,7 +46,6 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-
         <div  style="overflow-y:hidden">
         <!-- header -->
         {% block header %}
@@ -63,17 +62,24 @@
                                 <ul>
                                     <li class="active"><a href="{{ path("home_index") }}">Home</a></li>
                                     <li class="has-dropdown">
-                                        <a href="shop.html">Shop</a>
+                                        <a href="#">Shop</a> <!-- categories path -->
                                         <ul class="dropdown" >
-                                            <li><a href="#pc-category" class="pc-redirect">Pc/Laptops</a></li>
-                                            <li><a href="#" >Accessories</a></li>
-                                            <li><a href="#mobile-category" class="mobile-redirect">Mobile</a></li>
+                                            <li><a href="#" class="pc-redirect">Pc/Laptops</a></li>
+
                                         </ul>
                                     </li>
 
                                     <li><a href="#footerr">About</a></li>
-                                    <li><a href="{{ path('app_login') }}">Login/Signup</a></li>
-                                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart [0]</a></li>
+                                    {% if user is defined  and user != null %}
+                                        <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                                        <li><a href="{{ path('user') }}">My Profile</a></li>
+                                        <li><a href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i> Cart [{{ nbProds }}]</a></li>
+                                    {% else %}
+                                    <li><a href="{{ path('app_login') }}">Login</a></li>
+                                    <li><a href="{{ path('app_register') }}">Sign up</a></li>
+                                    {% endif %}
+
+
                                 </ul>
                             </div>
                         </div>
@@ -81,6 +87,26 @@
                 </div>
             </nav>
          {% endblock %}
+
+          {% block flashbags%}
+              <div class="container">
+            {% for error in app.session.flashbag.get('error') %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            {% endfor %}
+                  {% for success in app.session.flashbag.get('success') %}
+                      <div class="alert alert-success">
+                          {{ success }}
+                      </div>
+                  {% endfor %}
+                  {% for info in app.session.flashbag.get('info') %}
+                      <div class="alert alert-info">
+                          {{ info }}
+                      </div>
+                  {% endfor %}
+            </div>
+          {% endblock %}
          {% block body%}
              <aside id="colorlib-hero">
                  <div class="flexslider">
@@ -178,14 +204,12 @@
                  </div>
              </div>
              <!-- mac slide => loop -->
+
              <div class="colorlib-testimony colorlib-light-grey" id="mac-category">
 
                  <div class="row">
                      <div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
-                         <h2><span>MACs</span></h2>
-                         <p>We love to tell our successful far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-
+                         <h2><span>MAC</span></h2>
                      </div>
                  </div>
 
@@ -196,7 +220,7 @@
                                  <div class="row">
                                      <div class="col-md-4">
                                          <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
+                                             <a href="#" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
                                              <div class="desc">
                                                  <p class="meta metanormal"><span class="day">20%</span><span class="month">OFF</span></p>
                                                  <p class="admin"><span>Stock:</span> <span>Available</span></p>
@@ -229,86 +253,8 @@
                                      </div>
                                  </div>
                              </div>
-                             <div class="item">
-                                 <div class="row">
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="meta metanormal"><span class="day">20%</span><span class="month">OFF</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Available</span></p>
-                                                 <h2><a href="blog.html">iMAC 2021</a></h2>
-                                                 <p>iMac 24" puce Apple M1, CPU 8 coeurs, GPU 7 coeurs, SSD 256Gb </p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/macbook.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="metacolorred meta"><span class="month">Limited</span><span class="month">Stock</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Limited</span></p>
-                                                 <h2><a href="blog.html">MacBook Pro 16"</a></h2>
-                                                 <p>MacBook Pro 17" Touch Bar, 8-core i9 à 2.3GHz / 16Go / 1 To - Space Grey</p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="meta metanormal"><span class="day">20%</span><span class="month">OFF</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Available</span></p>
-                                                 <h2><a href="blog.html">iMAC 2021</a></h2>
-                                                 <p>iMac 24" puce Apple M1, CPU 8 coeurs, GPU 7 coeurs, SSD 256Gb </p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="item">
-                                 <div class="row">
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="meta metanormal"><span class="day">20%</span><span class="month">OFF</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Available</span></p>
-                                                 <h2><a href="blog.html">iMAC 2021</a></h2>
-                                                 <p>iMac 24" puce Apple M1, CPU 8 coeurs, GPU 7 coeurs, SSD 256Gb </p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/macbook.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="metacolorred meta"><span class="month">Limited</span><span class="month">Stock</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Limited</span></p>
-                                                 <h2><a href="blog.html">MacBook Pro 16"</a></h2>
-                                                 <p>MacBook Pro 18" Touch Bar, 8-core i9 à 2.3GHz / 16Go / 1 To - Space Grey</p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <article class="article-entry">
-                                             <a href="blog.html" class="blog-img" style="background-image: url(../public/assets/images/imac.jpg);"></a>
-                                             <div class="desc">
-                                                 <p class="meta metanormal"><span class="day">20%</span><span class="month">OFF</span></p>
-                                                 <p class="admin"><span>Stock:</span> <span>Available</span></p>
-                                                 <h2><a href="blog.html">iMAC 2021</a></h2>
-                                                 <p>iMac 24" puce Apple M1, CPU 8 coeurs, GPU 7 coeurs, SSD 256Gb </p>
-                                             </div>
-                                         </article>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+
                  </div>
-
-
-
              </div>
              <!-- end of loop -->
          {% endblock %}

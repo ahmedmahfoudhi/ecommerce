@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Service\ImageUploader;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
@@ -18,17 +20,26 @@ class ProductController extends AbstractController
 {
 
     /**
-     * @Route("/product/list/{page<\d+>?1}/{number<\d+>?6}", name="product.list")
+     * @Route("/product/listAll/{page<\d+>?1}/{number<\d+>?6}", name="product.list.all")
      */
-    public function index($page, $number): Response
+    public function index($page, $number, Security $security): Response
     {
+        $user = $security->getUser();
+        $isAdmin = false;
+        if(in_array('ROLE_ADMIN',$user->getRoles())){
+            $isAdmin = true;
+        }
+
         $repository = $this->getDoctrine()->getRepository('App:Product');
         $conditions = [];
         $products = $repository->findBy($conditions, ['productPrice'=> 'asc'],$number, ($page - 1) * $number);
         return $this->render('product/index.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'isAdmin' => $isAdmin
         ]);
     }
+
+
 
 
     /**
@@ -51,7 +62,7 @@ class ProductController extends AbstractController
             $manager->persist($product);
             $manager->flush();
             $this->addFlash('success', "product ".$product->getProductName()." successfully added");
-            return $this->redirectToRoute('product.list');
+            return $this->redirectToRoute('product.list.all');
         }
         return $this->render('product/add.html.twig', [
             'form' => $form->createView()
@@ -59,7 +70,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{product}", name="product.delete")
+     * @Route("/product/delete/{product}", name="product.delete")
      */
     public function deleteProduct(EntityManagerInterface $manager, Product $product = null ) {
 
@@ -73,7 +84,22 @@ class ProductController extends AbstractController
             $this->addFlash('error', "le produit  est innexistant");
         }
 
-        return $this->redirectToRoute('product.list');
+        return $this->redirectToRoute('product.list.all');
+    }
+
+    /**
+     * @Route("/product/list/{id}", name="product.list.category")
+     */
+    public function listProd(Category $id,EntityManagerInterface $em,Security $security){
+        $repo = $em->getRepository("App:Product");
+        $prods = $repo->findBy(['category' => $id]);
+        $user = $security->getUser();
+        $isAdmin = $user->getRoles() == ['ROLE_ADMIN'];
+        return $this->render('product/index.html.twig',[
+            'products' => $prods,
+            'isAdmin' => $isAdmin
+
+        ]);
     }
 
 
@@ -96,7 +122,7 @@ class ProductController extends AbstractController
             $manager->persist($product);
             $manager->flush();
             $this->addFlash('success', "product ".$product->getProductName()." successfully modified");
-            return $this->redirectToRoute('product.list');
+            return $this->redirectToRoute('product.list.all');
         }
         return $this->render('product/add.html.twig', [
             'form' => $form->createView()
@@ -105,11 +131,11 @@ class ProductController extends AbstractController
 
 
     /**
-     * @Route("/product/{product}", name="product.detail")
+     * @Route("/product/{id}", name="product.detail")
      */
-    public function detailProduct(Product $product = null) {
+    public function detailProduct(Product $id = null) {
         return $this->render('product/detail.html.twig', [
-            'p' => $product
+            'p' => $id
         ]);
     }
 

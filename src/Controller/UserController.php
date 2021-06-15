@@ -6,6 +6,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use App\Service\ImageUploader;
+use App\Service\UserProdAndRole;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +28,17 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user")
      */
-    public function index(Security $security): Response
+    public function index(UserProdAndRole $userProdAndRole): Response
     {
         
-        $user = $security->getUser();
+        $user = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
+        $nbProd = $userProdAndRole->getNbProds();
         if($user){
             return $this->render("user/home.html.twig", [
-                'user' => $user
+                'user' => $user,
+                'isAdmin' => $isAdmin,
+                'nbProds' => $nbProd
             ]);
         }else{
 
@@ -49,20 +54,29 @@ class UserController extends AbstractController
      * @Route("/list", name="user.list")
      */
 
-    public function list(Security $security): Response
+    public function list(UserProdAndRole $userProdAndRole): Response
     {
 
-        $loggedUser = $security->getUser();
+
+        $loggedUser = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
+        $nbProds = $userProdAndRole->getNbProds();
+
+
+
 
         if($loggedUser){
 
-            if(in_array("ROLE_ADMIN", $loggedUser->getRoles())){
+            if($isAdmin == true){
                 $repository = $this->getDoctrine()->getRepository(User::class);
                 $users = $repository->findAll();
 
 
                 return $this->render('user/list.html.twig', [
                     'users' => $users ,
+                    'user' => $loggedUser,
+                    'isAdmin' => $isAdmin,
+                    'nbProds' => $nbProds
                 ]);
 
             }else{
@@ -89,13 +103,13 @@ class UserController extends AbstractController
      * @Route("/delete/{user}", name="user.delete")
      */
     // ToDo add delete user and add confirmation
-    public function deleteUser(Security $security,EntityManagerInterface $manager, User $user , Request $request ): Response
+    public function deleteUser(User $user, UserProdAndRole $userProdAndRole, EntityManagerInterface $manager): Response
     {
-
-        $loggedUser = $security->getUser();
+        $loggedUser = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
 
         if($loggedUser){
-            if(in_array("ROLE_ADMIN", $loggedUser->getRoles())){
+            if($isAdmin == true){
                 $user->setDeletedAt();
                 $manager->persist($user);
                 $manager->flush();
@@ -127,14 +141,16 @@ class UserController extends AbstractController
      * @Route("/edit/{user}", name="user.edit")
      */
 
-    public function edit(Security $security, User $user , Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, ImageUploader $imageUploader): Response
+    public function edit(UserProdAndRole $userProdAndRole, User $user , Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, ImageUploader $imageUploader): Response
     {
 
-        $loggedUser = $security->getUser();
+        $loggedUser = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
+        $nbProd = $userProdAndRole->getNbProds();
 
         if($loggedUser){
 
-            if(in_array("ROLE_ADMIN", $loggedUser->getRoles())){
+            if($isAdmin == true){
                 $form = $this->createForm(RegistrationFormType::class, $user);
                 $form->handleRequest($request);
 
@@ -164,6 +180,9 @@ class UserController extends AbstractController
 
                 return $this->render('user/edit.html.twig', [
                     'editUserForm' => $form->createView(),
+                    'nbProds' => $nbProd,
+                    'user' => $loggedUser,
+                    'isAdmin' => $isAdmin
                 ]);
 
             }else{
@@ -189,9 +208,11 @@ class UserController extends AbstractController
      * @Route("/edit", name="user.edit.self")
      */
 
-    public function editSelf(Security $security, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, ImageUploader $imageUploader): Response
+    public function editSelf(UserProdAndRole $userProdAndRole, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, ImageUploader $imageUploader): Response
     {
-        $user = $security->getUser();
+        $user = $userProdAndRole->getUser();
+        $isAdmin = $userProdAndRole->isAdmin();
+        $nbProd = $userProdAndRole->getNbProds();
 
         if($user){
             $form = $this->createForm(RegistrationFormType::class, $user);
@@ -223,6 +244,9 @@ class UserController extends AbstractController
 
             return $this->render('user/edit.html.twig', [
                 'editUserForm' => $form->createView(),
+                'isAdmin' => $isAdmin,
+                'user' => $user,
+                'nbProds' => $nbProd
             ]);
         }else{
             //add flashbag
