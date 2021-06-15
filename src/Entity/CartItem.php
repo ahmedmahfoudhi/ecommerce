@@ -77,11 +77,13 @@ class CartItem
         return $this->addedat;
     }
 
-    public function setAddedat(\DateTimeInterface $addedat): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setAddedat(): void
     {
-        $this->addedat = $addedat;
+        $this->addedat = new \DateTime("NOW");
 
-        return $this;
     }
 
     public function getProduct(): ?Product

@@ -55,11 +55,12 @@ class ShoppingCart
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAt(): void
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        $this->createdAt = new \DateTime("NOW");
     }
 
     public function getDeletedAt(): ?\DateTimeInterface
@@ -67,11 +68,12 @@ class ShoppingCart
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    /**
+     * @ORM\PreRemove
+     */
+    public function setDeletedAt(): void
     {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
+        $this->deletedAt = new \DateTime("NOW");
     }
 
     public function getUser(): ?User
