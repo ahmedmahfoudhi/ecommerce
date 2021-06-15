@@ -103,7 +103,6 @@ class UserController extends AbstractController
     /**
      * @Route("/delete/{user}", name="user.delete")
      */
-    // ToDo add delete user and add confirmation
     public function deleteUser(User $user, UserProdAndRole $userProdAndRole, EntityManagerInterface $manager): Response
     {
         $loggedUser = $userProdAndRole->getUser();
@@ -171,19 +170,14 @@ class UserController extends AbstractController
                     $entityManager->flush();
                     // do anything else you need here, like send an email
 
-                    return $guardHandler->authenticateUserAndHandleSuccess(
-                        $user,
-                        $request,
-                        $authenticator,
-                        'main' // firewall name in security.yaml
-                    );
+                    return $this->redirectToRoute("user"); //changed here
                 }
 
                 return $this->render('user/edit.html.twig', [
-                    'editUserForm' => $form->createView(),
+                    'userEditForm' => $form->createView(),
                     'nbProds' => $nbProd,
-                    'user' => $loggedUser,
-                    'isAdmin' => $isAdmin
+                    'isAdmin' => $isAdmin,
+                    'user' => $loggedUser
                 ]);
 
             }else{
@@ -215,7 +209,7 @@ class UserController extends AbstractController
         $isAdmin = $userProdAndRole->isAdmin();
         $nbProd = $userProdAndRole->getNbProds();
 
-        if($user){
+        if($user != null){
             $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
@@ -234,21 +228,22 @@ class UserController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 // do anything else you need here, like send an email
-
                 return $guardHandler->authenticateUserAndHandleSuccess(
                     $user,
                     $request,
                     $authenticator,
                     'main' // firewall name in security.yaml
                 );
+            }else{
+                return $this->render('user/edit.html.twig', [
+                    'userEditForm' => $form->createView(),
+                    'isAdmin' => $isAdmin,
+                    'user' => $user,
+                    'nbProds' => $nbProd
+                ]);
             }
 
-            return $this->render('user/edit.html.twig', [
-                'registrationForm' => $form->createView(),
-                'isAdmin' => $isAdmin,
-                'user' => $user,
-                'nbProds' => $nbProd
-            ]);
+
         }else{
             //add flashbag
             $this->addFlash('error', "you must be logged in");

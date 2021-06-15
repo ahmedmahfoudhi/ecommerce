@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Edit{% endblock %}
 
 {% block body %}
     <style>
@@ -16,62 +16,70 @@
 
         <h1>Edit</h1>
 
-        {{ form_start(registrationForm) }}
+        {{ form_start(userEditForm) }}
 
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Firstname : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.firstname) }}
+                {{ form_widget(userEditForm.firstname) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Lastname : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.lastname) }}
+                {{ form_widget(userEditForm.lastname) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Email : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.email) }}
+                {{ form_widget(userEditForm.email) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Password : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_widget(userEditForm.plainPassword) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Phone number : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.phoneNumber) }}
+                {{ form_widget(userEditForm.phoneNumber) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">State : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.state) }}
+                {{ form_widget(userEditForm.state) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Street : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.street) }}
+                {{ form_widget(userEditForm.street) }}
             </div>
         </div>
         <div class="form-group mb-2">
             <label class="control-label col-sm-2">Postal Code : </label>
             <div class="col-sm-10">
 
-                {{ form_widget(registrationForm.postalCode) }}
+                {{ form_widget(userEditForm.postalCode) }}
+            </div>
+        </div>
+
+        <div class="form-group mb-2">
+            <label class="control-label col-sm-2">I confirm : </label>
+            <div class="col-sm-10">
+
+                {{ form_widget(userEditForm.agreeTerms) }}
             </div>
         </div>
 
@@ -79,14 +87,14 @@
 
         <div class="col-sm-10">
             <label class="control-label col-sm-2">Avatar : </label>
-            {{ form_widget(registrationForm.avatar) }}
+            {{ form_widget(userEditForm.avatar) }}
         </div>
 
 
         <div class="col-sm-10">
             <button type="submit" class="btn btn-primary">Edit</button>
         </div>
-        {{ form_end(registrationForm) }}
+        {{ form_end(userEditForm) }}
     </div>
 {% endblock %}
 
